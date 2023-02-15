@@ -28,15 +28,20 @@ export default {
       return this.ascending ? 'ascending' : 'descending'
     }
   },
+  created() {
+    this.field = this.$route.query.field
+    this.ascending = this.$route.query.asc === 'true'
+  },
   methods: {
     changeSort(field) {
-      console.log(field, this.ascending)
       if (this.field !== field) {
         this.field = field
         this.ascending = true
       } else {
         this.ascending = !this.ascending
       }
+
+      this.$router.replace({ name: 'main', query: { field: this.field, asc: this.ascending } })
     }
   }
 }
